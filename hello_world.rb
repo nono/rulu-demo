@@ -9,7 +9,24 @@ class HelloWorld
   end
 end
 
+class RequestMethod
+  def initialize(app)
+    @app = app
+  end
+
+  def call(env)
+    if env["REQUEST_METHOD"] == "GET"
+      @app.call(env)
+    else
+      [405, {}, ["Method not allowed\n"]]
+    end
+  end
+end
+
+app = HelloWorld.new
+app = RequestMethod.new(app)
+
 Rack::Handler::WEBrick.run(
-  HelloWorld.new,
+  app,
   :Port => 9000
 )
