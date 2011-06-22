@@ -1,6 +1,7 @@
 #!/usr/bin/env ruby
 require 'goliath'
 require 'em-http'
+require 'em-synchrony'
 require 'em-synchrony/em-http'
 
 
@@ -16,6 +17,8 @@ class SlowHttp < Goliath::API
     url    = "http://localhost:3000#{env[Goliath::Request::REQUEST_PATH]}"
     params = { head: env['client-headers'], query: env.params }
     http   = EM::HttpRequest.new(url).get(params)
+
+    EM::Synchrony.sleep(2)
 
     headers = to_http_headers(http.response_header)
     [http.response_header.status, headers, http.response]
