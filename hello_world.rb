@@ -1,32 +1,12 @@
 #!/usr/bin/env ruby
-require 'rack'
+require 'goliath'
 
-class HelloWorld
-  def call(env)
+class HelloWorld < Goliath::API
+  use Goliath::Rack::Validation::RequestMethod, %w(GET)
+
+  def response(env)
     [200,
       { "content-type" => "text/plain" },
       ["Hello World!\n"]]
   end
 end
-
-class RequestMethod
-  def initialize(app)
-    @app = app
-  end
-
-  def call(env)
-    if env["REQUEST_METHOD"] == "GET"
-      @app.call(env)
-    else
-      [405, {}, ["Method not allowed\n"]]
-    end
-  end
-end
-
-app = HelloWorld.new
-app = RequestMethod.new(app)
-
-Rack::Handler::WEBrick.run(
-  app,
-  :Port => 9000
-)
