@@ -17,8 +17,16 @@ GIT
 GEM
   remote: http://rubygems.org/
   specs:
+    addressable (2.2.6)
     async-rack (0.5.1)
       rack (~> 1.1)
+    em-http-request (1.0.0.beta.3)
+      addressable (>= 2.2.3)
+      em-socksify
+      eventmachine
+      http_parser.rb (>= 0.5.1)
+    em-socksify (0.1.0)
+      eventmachine
     em-synchrony (0.3.0.beta.1)
       eventmachine (>= 1.0.0.beta.1)
     eventmachine (1.0.0.beta.3)
@@ -41,4 +49,5 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  em-http-request (= 1.0.0.beta.3)
   goliath!
