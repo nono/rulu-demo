@@ -1,4 +1,11 @@
 #!/usr/bin/env ruby
+#
+# Simple example that takes all GET requests and forwards
+# them to another API using em-http-request. It can slow
+# down some request, based on their content-types. You can
+# use it to see the effect of slow loading of JS files for
+# example.
+#
 require 'goliath'
 require 'em-http'
 require 'em-synchrony'
